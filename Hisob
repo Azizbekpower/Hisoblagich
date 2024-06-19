@@ -1,0 +1,29 @@
+name: Android Build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y python3-pip openjdk-8-jdk unzip
+        pip3 install --upgrade cython buildozer
+
+    - name: Build APK
+      run: |
+        buildozer android debug
+    ```
+
